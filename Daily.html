@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const gameInfo = [
+ {
+   username: "john",
+   team: "red",
+   score: 5,
+   items: ["ball", "book", "pen"]
+ },
+ {
+   username: "becky",
+   team: "blue",
+   score: 10,
+   items: ["tape", "backpack", "pen"]
+ },
+ {
+   username: "susy",
+   team: "red",
+   score: 55,
+   items: ["ball", "eraser", "pen"]
+ },
+ {
+   username: "tyson",
+   team: "green",
+   score: 1,
+   items: ["book", "pen"]
+ },
+];
+
+
+
+const usernames = [];
+
+gameInfo.forEach(use => {
+  usernames.push(use.username + "!");
+});
+console.log(usernames);
+
+
+
+const winners = [];
+
+gameInfo.forEach(use => {
+  if (use.score > 5) {
+    winners.push(use.username);
+  }
+});
+console.log(winners);
+
+
+
+const totalScore = gameInfo.reduce((accumulator, player) => {
+  return accumulator + player.score;
+}, 0);
+
+console.log(totalScore);
+    </script>
+</body>
+</html>
