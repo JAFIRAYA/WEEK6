@@ -27,13 +27,13 @@ const displayGroceries = () => {
 }
 
 const cloneGroceries = () => {
-  let user = client;
-  client = "Betty";
+  let user = client;// l'utilisateur est une copie du client
+  client = "Betty";// modification de la variable client en "Betty"
   let shopping = Object.assign({}, groceries);
-  shopping.totalPrice = "35$";
-  shopping.other.payed = false;
+  shopping.totalPrice = "35$";// modification de totalPrice dans l'objet shopping
+  shopping.other.payed = false;// modification de l'objet shopping payé
 
-  console.log(user);
+  console.log(user);// la variable utilisateur sera toujours "John" car il s'agit d'un type primitif et a été copié par valeur
   console.log(client);
   console.log(groceries.totalPrice);
   console.log(shopping.totalPrice); 

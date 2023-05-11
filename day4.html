@@ -34,7 +34,43 @@
             document.querySelector('body').textContent = sentence;
             })
             (8, 'SAMI', 'CASABLANCA', 'Marketing');
-            //exercice4
+            //exercice5
+            function makeJuice(size) {
+  function addIngredients(ingredient1, ingredient2, ingredient3) {
+    const sentence = `The client wants a ${size} juice, containing ${ingredient1}, ${ingredient2}, ${ingredient3}`;
+    console.log(sentence);
+    // display on DOM
+  }
+
+  addIngredients('apple', 'orange', 'carrot');
+}
+
+makeJuice('medium');
+//part2
+function makeJuice(size) {
+  const ingredients = [];
+
+  function addIngredients(ingredient1, ingredient2, ingredient3) {
+    ingredients.push(ingredient1, ingredient2, ingredient3);
+  }
+
+  function displayJuice() {
+    ingredients.forEach(function(ingredient, index) {
+      if (index === 0) {
+        console.log(`The client wants a ${size} juice, containing ${ingredient}`);
+      } else {
+        console.log(ingredient);
+      }
+    });
+    // display on DOM
+  }
+
+  addIngredients('apple', 'orange', 'carrot');
+  addIngredients('spinach', 'ginger', 'lemon');
+  displayJuice();
+}
+
+makeJuice('large');
 
 
     </script>
