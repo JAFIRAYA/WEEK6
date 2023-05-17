@@ -23,19 +23,17 @@ let quote=[
     let  btn1=document.getElementById('btn')
 
     btn1.addEventListener('click',function(){
-       let A=Math.floor(Math.random()*quote.length)
-       let B=quote.find((x) => x.id==A)
+       let rendomIndex=Math.floor(Math.random()*quote.length)
+       console.log("index "+rendomIndex)
+
+       let B=quote.find((x) => x.id==rendomIndex)
+       console.log("CURRENT "+B)
        sec.textContent=B.quote
 
-       
-        
-    
     }
 
     )
    
-
-    
 
 function addQuote() {
     let QU=document.getElementById('Q')
@@ -44,9 +42,11 @@ function addQuote() {
   
  
    let newQuote = {
-    QU: QU.value,
+    id: quote.length,
     auteur: AU.value,
-    id: quote.length + 1
+    quote: QU.value,
+    
+    
   };
   
   
@@ -63,29 +63,29 @@ function addQuote() {
 
         function withSpace() {
             
-            let inputText = document.getElementById("text1").value;
+            let inputText = sec.textContent;
             
-            
-            let quote = inputText.match(/".*?"/g);
-            
+            //let quote = inputText.match(/".*?"/g);
+            alert("Quote : " + inputText.length + " characters");
         
-            for (let i = 0; i < quote.length; i++) {
+            /*for (let i = 0; i < quote.length; i++) {
               let qoute = quote[i];
               let numCharacters = qoute.length;
               
               
-              alert("Quote #" + (i+1) + ": " + numCharacters + " characters");
-            }
+              alert("Quote " + (i+1) + ": " + numCharacters + " characters");
+            }*/
           }
           function countCharacters() {
            
-            let  inputText = document.getElementById("myTextarea").value;
-            
-            
-            let  quotes = inputText.match(/".*?"/g);
+            let inputText = sec.textContent;
+            let  noSpaces = inputText.replace(/\s/g, "");
+            alert("Quote : " + noSpaces.length + " no characters");
+
+            //let  quotes = inputText.match(/".*?"/g);
             
            
-            for (let  i = 0; i < quotes.length; i++) {
+            /*for (let  i = 0; i < quotes.length; i++) {
               let  quote = quotes[i];
               
              
@@ -95,8 +95,8 @@ function addQuote() {
               let  numCharacters = noSpaces.length;
               
               
-              alert("Quote #" + (i+1) + ": " + numCharacters + " characters");
-            }
+              alert("Quote " + (i+1) + ": " + numCharacters + " characters");
+            }*/
           }
         
 
