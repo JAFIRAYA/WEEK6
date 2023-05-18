@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Quote Generator</title>
+  
+  <script src="script.js"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <section id="quote-section"></section>
+  
+  <button id="generate-btn">Generate Quote</button>
+
+  <form id="add-quote-form">
+    <input type="text" id="quote-input" placeholder="Quote">
+    <input type="text" id="author-input" placeholder="Author">
+    <button type="submit">Add Quote</button>
+  </form>
+
+  <button id="char-count-btn">Character Count (with spaces)</button>
+  <button id="char-count-no-spaces-btn">Character Count (without spaces)</button>
+  <button id="word-count-btn">Word Count</button>
+  <button id="like-btn">Like</button>
+
+  <form id="filter-form">
+    <input type="text" id="author-filter-input" placeholder="Author Name">
+    <button type="submit">Filter</button>
+  </form>
+
+  <button id="prev-quote-btn">Previous</button>
+  <button id="next-quote-btn">Next</button>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const quoteSection = document.getElementById('quote-section');
+  const generateBtn = document.getElementById('generate-btn');
+  const addQuoteForm = document.getElementById('add-quote-form');
+  const quoteInput = document.getElementById('quote-input');
+  const authorInput = document.getElementById('author-input');
+  const charCountBtn = document.getElementById('char-count-btn');
+  const charCountNoSpacesBtn = document.getElementById('char-count-no-spaces-btn');
+  const wordCountBtn = document.getElementById('word-count-btn');
+  const likeBtn = document.getElementById('like-btn');
+  const filterForm = document.getElementById('filter-form');
+  const authorFilterInput = document.getElementById('author-filter-input');
+  const prevQuoteBtn = document.getElementById('prev-quote-btn');
+  const nextQuoteBtn = document.getElementById('next-quote-btn');
+
+  let quotes = [
+    { id: 0, author: "Victor Hugo", quote: "La vie n\'est qu\'une longue perte de tout ce qu\'on aime.", likes: 0 },
+    { id: 1, author: "Albert Einstein", quote:"L'imagination est plus importante que la connaissance.", likes: 0 },
+    { id: 2, author: "Mahatma Gandhi", quote: "La vie est un mystère qu'il faut vivre, et non un problème à résoudre.", likes: 0 }
+  ];
+
+  let currentQuoteIndex = null;
+
+  function getRandomQuote() {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    if (randomIndex === currentQuoteIndex) {
+      return getRandomQuote();
+    }
+    currentQuoteIndex = randomIndex;
+    return quotes[randomIndex];
+  }
+
+  function displayQuote(quote) {
+    quoteSection.innerHTML = `
+      <div class="quote-item">
+        <div class="quote-text">${quote.quote}</div>
+        <div class="quote-author">- ${quote.author}</div>
+        <div class="quote-likes">Likes: ${quote.likes}</div>
+      </div>
+    `;
+  }
+
+  function addQuote(quoteText, author) {
+    const newQuote = {
+      id: quotes.length,
+      author: author,
+      quote: quoteText,
+      likes: 0
+    };
+    quotes.push(newQuote);
+    quoteInput.value = '';
+    authorInput.value = '';
+  }
+
+  function updateLikes() {
+     if (currentQuoteIndex !== null) {
+      quotes[currentQuoteIndex].likes++;
+      displayQuote(quotes[currentQuoteIndex]);
+    }
+  }
+
+  function filterQuotesByAuthor(author) {
+    const filteredQuotes = quotes.filter(quote => quote.author.toLowerCase() === author.toLowerCase());
+    if (filteredQuotes.length > 0) {
+      currentQuoteIndex = null;
+      displayQuote(filteredQuotes[0]);
+    } else {
+      quoteSection.innerHTML = 'No quotes found for the given author.';
+    }
+  }
+
+  function showPreviousQuote() {
+    if (currentQuoteIndex !== null && currentQuoteIndex > 0) {
+      currentQuoteIndex--;
+      displayQuote(quotes[currentQuoteIndex]);
+    }
+  }
+
+  function showNextQuote() {
+    if (currentQuoteIndex !== null && currentQuoteIndex < quotes.length - 1) {
+      currentQuoteIndex++;
+      displayQuote(quotes[currentQuoteIndex]);
+    }
+  }
+
+  generateBtn.addEventListener('click', function() {
+    const randomQuote = getRandomQuote();
+    displayQuote(randomQuote);
+  });
+
+  addQuoteForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const quoteText = quoteInput.value.trim();
+    const author = authorInput.value.trim();
+    if (quoteText !== '' && author !== '') {
+      addQuote(quoteText, author);
+    }
+  });
+
+  charCountBtn.addEventListener('click', function() {
+    if (currentQuoteIndex !== null) {
+      const quoteText = quotes[currentQuoteIndex].quote;
+      const charCount = quoteText.length;
+      alert(`Character Count (with spaces): ${charCount}`);
+    }
+  });
+
+  charCountNoSpacesBtn.addEventListener('click', function() {
+    if (currentQuoteIndex !== null) {
+      const quoteText = quotes[currentQuoteIndex].quote;
+      const charCount = quoteText.replace(/\s/g, '').length;
+      alert(`Character Count (without spaces): ${charCount}`);
+    }
+  });
+
+  wordCountBtn.addEventListener('click', function() {
+    if (currentQuoteIndex !== null) {
+      const quoteText = quotes[currentQuoteIndex].quote;
+      const wordCount = quoteText.trim().split(/\s+/).length;
+      alert(`Word Count: ${wordCount}`);
+    }
+  });
+
+  likeBtn.addEventListener('click', updateLikes);
+
+  filterForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const author = authorFilterInput.value.trim();
+    if (author !== '') {
+      filterQuotesByAuthor(author);
+    }
+  });
+
+  prevQuoteBtn.addEventListener('click', showPreviousQuote);
+  nextQuoteBtn.addEventListener('click', showNextQuote);
+});
+   
+
+  </script>
+</body>
+</html>
